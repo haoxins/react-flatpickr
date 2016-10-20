@@ -9,7 +9,7 @@ import Flatpickr from '../'
 class App extends Component {
   render() {
     return (
-      <Flatpickr data-enable-time
+      <Flatpickr data-enable-time className='test'
         onChange={(obj, str, ins) => console.info(obj, str, ins)} />
     )
   }
