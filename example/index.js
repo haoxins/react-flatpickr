@@ -1,8 +1,8 @@
 
 import 'flatpickr/dist/flatpickr.material_green.min.css'
 
+import React, { Component } from 'react'
 import { render } from 'react-dom'
-import { Component } from 'react'
 
 import Flatpickr from '../'
 

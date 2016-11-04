@@ -13,11 +13,6 @@ module.exports = {
     filename: 'example.js'
   },
 
-  externals: {
-    'react-dom': 'ReactDOM',
-    react: 'React'
-  },
-
   module: {
     loaders: [{
       loader: 'babel',
