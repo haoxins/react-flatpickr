@@ -18,7 +18,7 @@ import { Component } from 'react'
 class App extends Component {
   render() {
     return (
-      <Flatpickr data-enabletime
+      <Flatpickr data-enable-time
         onChange={v => console.info(v)} />
     )
   }
