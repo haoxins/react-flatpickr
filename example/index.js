@@ -1,5 +1,5 @@
 
-import 'flatpickr/dist/flatpickr.material_green.min.css'
+import 'flatpickr/dist/themes/material_green.css'
 
 import React, { Component } from 'react'
 import { render } from 'react-dom'
@@ -26,11 +26,11 @@ class App extends Component {
     return (
       <main>
         <Flatpickr data-enable-time className='test'
-          onChange={(obj, str, ins) => console.info(obj, str, ins)} />
+          onChange={(_, str) => console.info(str)} />
         <Flatpickr data-enable-time defaultValue='2016-11-11 11:11'
-          onChange={(obj, str, ins) => console.info(obj, str, ins)} />
+          onChange={(_, str) => console.info(str)} />
         <Flatpickr data-enable-time value={v}
-          onChange={(obj, str, ins) => console.info(obj, str, ins)} />
+          onChange={(_, str) => console.info(str)} />
       </main>
     )
   }
