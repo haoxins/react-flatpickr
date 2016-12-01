@@ -31,6 +31,8 @@ class App extends Component {
           onChange={(_, str) => console.info(str)} />
         <Flatpickr data-enable-time value={v}
           onChange={(_, str) => console.info(str)} />
+        <Flatpickr value={v} options={{minDate: "2016-11-01"}}
+          onChange={(_, str) => console.info(str)} />
       </main>
     )
   }
