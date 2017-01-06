@@ -25,6 +25,12 @@ class App extends Component {
 }
 ```
 
+* `flatpickr options`: you can pass all `flatpickr parameters` to `props.options`
+
+```jsx
+<Flatpickr options={{minDate: '2017-01-01'}} />
+```
+
 ### License
 MIT
 
