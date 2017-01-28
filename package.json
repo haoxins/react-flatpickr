@@ -10,7 +10,7 @@
     "prepublish": "npm run build",
     "test": "echo todo"
   },
-  "repository": "terebentina/react-flatpickr",
+  "repository": "coderhaoxin/react-flatpickr",
   "keywords": [
     "flatpickr",
     "react"
