@@ -33,9 +33,7 @@
     "babel-preset-react": "^6.22.0",
     "babel-preset-stage-0": "^6.22.0",
     "css-loader": "^0.26.1",
-    "eslint": "^3.14.1",
-    "eslint-config-bx-bsd": "^1.4.0",
-    "eslint-plugin-react": "^6.9.0",
+    "eslint-config-ok": "github:haoxins/eslint-config",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "style-loader": "^0.13.1",
@@ -43,7 +41,7 @@
   },
   "eslintConfig": {
     "extends": [
-      "eslint-config-bx-bsd"
+      "ok"
     ]
   }
 }
