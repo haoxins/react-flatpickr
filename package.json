@@ -37,7 +37,8 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "style-loader": "^0.13.1",
-    "webpack": "^2.2.1"
+    "webpack": "^2.2.1",
+    "prop-types": "^15.5.7"
   },
   "eslintConfig": {
     "extends": [
