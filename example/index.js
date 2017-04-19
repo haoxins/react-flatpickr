@@ -33,6 +33,10 @@ class App extends Component {
           onChange={(_, str) => console.info(str)} />
         <Flatpickr value={v} options={{minDate: '2016-11-01'}}
           onChange={(_, str) => console.info(str)} />
+        <Flatpickr value={[v, '2016-01-10']} options={{mode: 'range'}}
+          onChange={(_, str) => console.info(str)} />
+        <Flatpickr value={new Date()}
+          onChange={(_, str) => console.info(str)} />
         <Flatpickr value={v} options={{wrap: true}}
           onChange={(_, str) => console.info(str)}
         >
