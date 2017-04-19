@@ -1,6 +1,6 @@
 {
   "name": "react-flatpickr",
-  "version": "3.2.1",
+  "version": "3.2.2",
   "description": "flatpickr for React",
   "main": "build/index.js",
   "scripts": {
