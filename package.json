@@ -23,9 +23,7 @@
   "license": "MIT",
   "dependencies": {
     "flatpickr": "^2.3.5",
-    "prop-types": "^15.5.7",
-    "react": "^15.4.2",
-    "react-dom": "^15.4.2"
+    "prop-types": "^15.5.7"
   },
   "devDependencies": {
     "babel-cli": "^6.22.2",
