@@ -8,15 +8,20 @@ import Flatpickr from '../'
 
 class App extends Component {
   state = {
-    v: '2016-01-01 01:01'
+    v: '2016-01-01 01:01',
+    onChange: (_, str) => {
+      console.info(str)
+    }
   }
 
   componentDidMount() {
     setTimeout(() => {
-      const { v } = this.state
-      this.setState({
-        v: v.replace('2016', '2017')
-      })
+      this.setState(state => ({
+        v: state.v.replace('2016', '2017'),
+        onChange: (_, str) => {
+          console.info('New change handler: ', str)
+        }
+      }))
     }, 2000)
   }
 
@@ -35,6 +40,13 @@ class App extends Component {
           onChange={(_, str) => console.info(str)} />
         <Flatpickr value={[v, '2016-01-10']} options={{mode: 'range'}}
           onChange={(_, str) => console.info(str)} />
+        <Flatpickr onChange={this.state.onChange}
+          onOpen={() => { console.info('opened (by prop)') }}
+          options={{
+            onClose: () => {
+              console.info('closed (by option)')
+            }
+          }} />
         <Flatpickr value={new Date()}
           onChange={(_, str) => console.info(str)} />
         <Flatpickr value={v} options={{wrap: true}}
