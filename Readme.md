@@ -26,6 +26,7 @@ class App extends Component {
 ```
 
 * `flatpickr options`: you can pass all `flatpickr parameters` to `props.options`
+* All flatpickr [hooks][hooks] can be passed as a react prop, or to `props.options`
 
 ```jsx
 <Flatpickr options={{minDate: '2017-01-01'}} />
@@ -44,3 +45,4 @@ MIT
 [license-url]: http://opensource.org/licenses/MIT
 [david-img]: https://img.shields.io/david/coderhaoxin/react-flatpickr.svg?style=flat-square
 [david-url]: https://david-dm.org/coderhaoxin/react-flatpickr
+[hooks]: https://chmln.github.io/flatpickr/events/#hooks
