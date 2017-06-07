@@ -10,6 +10,13 @@
     "prepublish": "npm run build",
     "test": "echo todo"
   },
+  "babel": {
+    "presets": [
+      "es2015",
+      "react",
+      "stage-0"
+    ]
+  },
   "repository": "coderhaoxin/react-flatpickr",
   "keywords": [
     "flatpickr",
@@ -39,7 +46,8 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "style-loader": "^0.13.1",
-    "webpack": "^2.2.1"
+    "webpack": "^2.2.1",
+    "prop-types": "^15.5.7"
   },
   "eslintConfig": {
     "extends": [
