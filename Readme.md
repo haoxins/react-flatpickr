@@ -10,7 +10,7 @@
 ### Usage
 
 ```jsx
-import 'flatpickr/dist/flatpickr.material_green.min.css'
+import 'flatpickr/dist/themes/material_green.min.css'
 
 import Flatpickr from 'react-flatpickr'
 import { Component } from 'react'
@@ -31,6 +31,9 @@ class App extends Component {
 ```jsx
 <Flatpickr options={{minDate: '2017-01-01'}} />
 ```
+
+### Themes
+Please import themes directly from the `flatpickr` dependency. In most cases, you should just be able to `import 'flatpickr/dist/themes/theme.css'`, but in some cases npm or yarn may install `flatpickr` in `node_modules/react-flatpickr/node_modules/flatpickr`. If that happens, removing your `node_modules` dir and reinstalling should put flatpickr in the root `node_modules` dir, or you can import from `react-flatpickr/node_modules/flatpickr` manually.
 
 ### License
 MIT
