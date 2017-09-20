@@ -4,7 +4,7 @@ import 'flatpickr/dist/themes/material_green.css'
 import React, { Component } from 'react'
 import { render } from 'react-dom'
 
-import Flatpickr from '../'
+import Flatpickr from '../lib/index.js'
 
 class App extends Component {
   state = {

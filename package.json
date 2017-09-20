@@ -5,6 +5,7 @@
   "main": "build/index.js",
   "scripts": {
     "example": "npm run build && webpack --config example/webpack.js",
+    "dev": "echo 'Please open the example directory to view the example' && webpack-dev-server --config example/webpack.js",
     "lint": "eslint lib && eslint example",
     "build": "babel lib --out-dir build",
     "prepublishOnly": "npm run build",
@@ -39,7 +40,8 @@
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "style-loader": "^0.13.1",
-    "webpack": "^2.2.1"
+    "webpack": "^2.2.1",
+    "webpack-dev-server": "^2.8.2"
   },
   "eslintConfig": {
     "extends": [
