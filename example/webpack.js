@@ -9,6 +9,7 @@ module.exports = {
   },
 
   output: {
+    publicPath: '/build/',
     path: path.join(__dirname, '../build'),
     filename: 'example.js'
   },
