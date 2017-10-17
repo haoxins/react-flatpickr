@@ -23,7 +23,7 @@
   "author": "haoxin",
   "license": "MIT",
   "dependencies": {
-    "flatpickr": "^4.0.1",
+    "flatpickr": "^4.0.5",
     "prop-types": "^15.5.10"
   },
   "devDependencies": {
