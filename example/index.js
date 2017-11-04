@@ -45,7 +45,8 @@ class App extends Component {
           options={{
             onClose: () => {
               console.info('closed (by option)')
-            }
+            },
+            maxDate: new Date()
           }} />
         <Flatpickr value={new Date()}
           onChange={(_, str) => console.info(str)} />
