@@ -1,0 +1,20 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "moduleResolution": "node",
+    "target": "es2015",
+    "strict": true,
+    "sourceMap": true,
+    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "pretty": true,
+    "outDir": "dist/es/",
+    "declaration": true
+  },
+  "include": [
+    "./src/",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
