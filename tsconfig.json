@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "module": "es2015",
+    "target": "es2015",
+    "strict": true,
+    "sourceMap": true,
+    "jsx": "react",
+    "pretty": true,
+    "outDir": "dist/es/",
+    "declaration": true
+  },
+  "include": [
+    "./src/",
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}

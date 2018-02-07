@@ -1,7 +1,6 @@
 
-import React, { Component } from 'react'
-import PropTypes from 'prop-types'
-import Flatpickr from 'flatpickr'
+import * as React from 'react'
+import Flatpickr, { Instance } from 'flatpickr'
 
 const hooks = [
   'onChange',
@@ -14,43 +13,52 @@ const hooks = [
   'onDayCreate'
 ]
 
-class DateTimePicker extends Component {
-  static propTypes = {
-    defaultValue: PropTypes.string,
-    options: PropTypes.object,
-    onChange: PropTypes.func,
-    onOpen: PropTypes.func,
-    onClose: PropTypes.func,
-    onMonthChange: PropTypes.func,
-    onYearChange: PropTypes.func,
-    onReady: PropTypes.func,
-    onValueUpdate: PropTypes.func,
-    onDayCreate: PropTypes.func,
-    value: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array,
-      PropTypes.object,
-      PropTypes.number
-    ]),
-    children: PropTypes.node
-  }
+export interface Options {
+  wrap?: boolean,
+  minDate?: string;
+  maxDate?: string | Date;
+  mode?: string;
+  onClose?: Handler
+}
+
+export type Handler = (e: Event | any, str?: any) => void;
+
+export interface Props {
+  defaultValue?: string,
+  options?: Options,
+  onChange?: Handler,
+  onOpen?: Handler,
+  onClose?: Handler,
+  onMonthChange?: Handler,
+  onYearChang?: Handler,
+  onReady?: Handler,
+  onValueUpdate?: Handler,
+  onDayCreate?: Handler,
+  value?: string | any[] | number | Date;
+  className?: string;
+  children?: any;
+}
+
+export default class DateTimePicker extends React.Component<Props> {
+  flatpickr: Flatpickr.Instance;
+  node!: HTMLElement;
 
   static defaultProps = {
     options: {}
   }
 
-  componentWillReceiveProps(props) {
+  componentWillReceiveProps(props: Props) {
     const { options } = props
     const prevOptions = this.props.options
 
     // Add prop hooks to options
     hooks.forEach(hook => {
       if (props.hasOwnProperty(hook)) {
-        options[hook] = props[hook]
+        (options as any)[hook] = (props as any)[hook]
       }
       // Add prev ones too so we can compare against them later
       if (this.props.hasOwnProperty(hook)) {
-        prevOptions[hook] = this.props[hook]
+        (prevOptions as any)[hook] = (this.props as any)[hook]
       }
     })
 
@@ -58,15 +66,15 @@ class DateTimePicker extends Component {
 
     for (let index = optionsKeys.length - 1; index >= 0; index--) {
       const key = optionsKeys[index]
-      let value = options[key]
+      let value = (options as any)[key]
 
-      if (value !== prevOptions[key]) {
+      if (value !== (prevOptions as any)[key]) {
         // Hook handlers must be set as an array
         if (hooks.indexOf(key) !== -1 && !Array.isArray(value)) {
           value = [value]
         }
 
-        this.flatpickr.set(key, value)
+        this.flatpickr.set(key as any, value)
       }
     }
 
@@ -83,14 +91,15 @@ class DateTimePicker extends Component {
       ...this.props.options
     }
 
+    // TODO: This can be cleaned up
     // Add prop hooks to options
     hooks.forEach(hook => {
-      if (this.props[hook]) {
-        options[hook] = this.props[hook]
+      if ((this.props as any)[hook]) {
+        (options as any)[hook] = (this.props as any)[hook]
       }
     })
 
-    this.flatpickr = new Flatpickr(this.node, options)
+    this.flatpickr = Flatpickr(this.node, options) as Instance;
 
     if (this.props.hasOwnProperty('value')) {
       this.flatpickr.setDate(this.props.value, false)
@@ -101,26 +110,29 @@ class DateTimePicker extends Component {
     this.flatpickr.destroy()
   }
 
+  ref = (node: any) => {
+    this.node = node;
+  }
+
   render() {
     // eslint-disable-next-line no-unused-vars
     const { options, defaultValue, value, children, ...props } = this.props
 
     // Don't pass hooks to dom node
     hooks.forEach(hook => {
-      delete props[hook]
+      delete (props as any)[hook]
     })
 
-    return options.wrap
+    return options!.wrap
       ? (
-        <div {...props} ref={node => { this.node = node }}>
-          { children }
+        <div {...props} ref={this.ref} >
+          {children}
         </div>
       )
       : (
         <input {...props} defaultValue={defaultValue}
-          ref={node => { this.node = node }} />
+          ref={this.ref} />
       )
   }
 }
 
-export default DateTimePicker
