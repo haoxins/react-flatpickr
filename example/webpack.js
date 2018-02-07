@@ -8,7 +8,7 @@ module.exports = {
     index: path.join(__dirname, 'index.tsx'),
   },
   resolve: {
-    extensions: [ '.tsx', '.ts', '.js' ]
+    extensions: ['.tsx', '.ts', '.js', '.jsx', '.json']
   },
 
   output: {

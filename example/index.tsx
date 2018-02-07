@@ -1,4 +1,3 @@
-
 import 'flatpickr/dist/themes/material_green.css'
 
 import * as React from 'react'

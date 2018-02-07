@@ -17,7 +17,7 @@ export interface Options {
   wrap?: boolean,
   minDate?: string;
   maxDate?: string | Date;
-  mode?: string;
+  mode?: "range" | "single" | "multiple";
   onClose?: Handler
 }
 
@@ -40,11 +40,12 @@ export interface Props {
 }
 
 export default class DateTimePicker extends React.Component<Props> {
-  flatpickr: Flatpickr.Instance;
+  flatpickr!: Flatpickr.Instance;
   node!: HTMLElement;
 
   static defaultProps = {
-    options: {}
+    options: {},
+    value: new Date()
   }
 
   componentWillReceiveProps(props: Props) {
@@ -79,7 +80,7 @@ export default class DateTimePicker extends React.Component<Props> {
     }
 
     if (props.hasOwnProperty('value') && props.value !== this.props.value) {
-      this.flatpickr.setDate(props.value, false)
+      this.flatpickr.setDate(props.value!, false)
     }
   }
 
@@ -102,7 +103,7 @@ export default class DateTimePicker extends React.Component<Props> {
     this.flatpickr = Flatpickr(this.node, options) as Instance;
 
     if (this.props.hasOwnProperty('value')) {
-      this.flatpickr.setDate(this.props.value, false)
+      this.flatpickr.setDate(this.props.value!, false)
     }
   }
 
