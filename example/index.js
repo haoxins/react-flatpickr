@@ -31,7 +31,10 @@ class App extends Component {
     return (
       <main>
         <Flatpickr data-enable-time className='test'
-          onChange={(_, str) => console.info(str)} />
+          onChange={[
+            (_, str) => console.info(str),
+            () => {} // test hookPropType
+          ]} />
         <Flatpickr data-enable-time defaultValue='2016-11-11 11:11'
           onChange={(_, str) => console.info(str)} />
         <Flatpickr data-enable-time value={v}
