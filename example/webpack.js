@@ -2,6 +2,7 @@
 'use strict'
 
 const path = require('path')
+const config = require('../.babelrc.js')
 
 module.exports = {
   entry: {
@@ -17,7 +18,8 @@ module.exports = {
   module: {
     loaders: [{
       loader: 'babel-loader',
-      exclude: /node_modules/
+      exclude: /node_modules/,
+      options: config
     }, {
       test: /\.css$/,
       loader: 'style-loader!css-loader'
