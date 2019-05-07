@@ -9,7 +9,9 @@
     "lint": "eslint lib && eslint example",
     "build": "babel lib --out-dir build",
     "prepublishOnly": "npm run build",
-    "test": "echo todo"
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "repository": "coderhaoxin/react-flatpickr",
   "keywords": [
@@ -50,8 +52,11 @@
     "babel-eslint": "^9.0.0",
     "babel-loader": "^8.0.0",
     "css-loader": "^0.28.7",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.12.1",
     "eslint": "^4.8.0",
     "eslint-config-ok": "github:haoxins/eslint-config",
+    "jest": "^24.8.0",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "style-loader": "^0.19.0",
@@ -62,5 +67,8 @@
     "extends": [
       "ok"
     ]
+  },
+  "jest": {
+    "setupFiles": ["./test/setup.js"]
   }
 }
