@@ -60,6 +60,16 @@ class App extends Component {
           <button type='button' data-toggle>Toggle</button>
           <button type='button' data-clear>Clear</button>
         </Flatpickr>
+        <Flatpickr
+          defaultValue='2019-05-05'
+          render={({ defaultValue }, ref)=>{
+            return (
+              <div>
+                <label>DateTimePicker</label>
+                <input defaultValue={ defaultValue } ref={ref} />
+              </div>
+            )
+          }} />
       </main>
     )
   }
