@@ -1,6 +1,6 @@
 {
   "name": "react-flatpickr",
-  "version": "3.7.1",
+  "version": "3.8.0",
   "description": "flatpickr for React",
   "main": "build/index.js",
   "scripts": {
@@ -69,6 +69,8 @@
     ]
   },
   "jest": {
-    "setupFiles": ["./test/setup.js"]
+    "setupFiles": [
+      "./test/setup.js"
+    ]
   }
 }
