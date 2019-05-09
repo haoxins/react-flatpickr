@@ -62,11 +62,13 @@ class App extends Component {
         </Flatpickr>
         <Flatpickr
           defaultValue='2019-05-05'
+          onCreate={(flatpickr) => { this.calendar = flatpickr }}
+          onDestroy={() => { delete this.calendar }}
           render={({ defaultValue }, ref)=>{
             return (
               <div>
-                <label>DateTimePicker</label>
                 <input defaultValue={ defaultValue } ref={ref} />
+                <button onClick={() => this.calendar.setDate(new Date())}>Today</button>
               </div>
             )
           }} />
