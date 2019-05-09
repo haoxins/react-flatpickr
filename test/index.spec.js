@@ -57,4 +57,52 @@ describe("react-flatpickr", () => {
       component.unmount()
     })
   })
+
+  describe("#onCreate", () => {
+    it("is called when the flatpickr instance is created", () => {
+      let spy = jest.fn()
+      const component = mount(<DateTimePicker onCreate={spy} />)
+      expect(spy).toHaveBeenCalled()
+      component.unmount()
+    })
+
+    it("is possible to reference the flatpickr instance", () => {
+      let calendar
+      const component = mount(
+        <DateTimePicker
+          defaultValue="2000-01-01"
+          onCreate={(flatpickr) => { calendar = flatpickr }}
+          render={
+            ({ defaultValue }, ref) => {
+              return (
+                <div>
+                  <input defaultValue={defaultValue} ref={ref} />
+                  <button onClick={() => {
+                    calendar.setDate("1000-01-01")
+                  }}>
+                    foo
+                  </button>
+                </div>
+              )
+            }
+          }
+        />
+      )
+      const input = component.find("input").instance()
+      expect(input.value).toEqual("2000-01-01")
+      const button = component.find("button")
+      button.simulate("click")
+      expect(input.value).toEqual("1000-01-01")
+      component.unmount()
+    })
+  })
+
+  describe("#onDestroy", () => {
+    it("is called when the flatpickr instance is destroyed", () => {
+      let spy = jest.fn()
+      const component = mount(<DateTimePicker onDestroy={spy} />)
+      component.unmount()
+      expect(spy).toHaveBeenCalled()
+    })
+  })
 })
