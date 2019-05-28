@@ -66,6 +66,17 @@ describe("react-flatpickr", () => {
       component.unmount()
     })
 
+    it("is rendered open", () => {
+      let calendar
+      const component = mount(<DateTimePicker onCreate={(flatpickr) => { calendar = flatpickr }} open={true} />)
+
+      calendar.open = jest.fn()
+
+      expect(component.props().open).toEqual(true)
+      expect(calendar.isOpen).toEqual(true)
+      component.unmount()
+    })
+
     it("is possible to reference the flatpickr instance", () => {
       let calendar
       const component = mount(
