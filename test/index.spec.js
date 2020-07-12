@@ -28,6 +28,17 @@ describe("react-flatpickr", () => {
         component.unmount()
       })
     })
+
+    describe("is updated with a minDate", () => {
+      it("updates the minDate first", () => {
+        const component = mount(<DateTimePicker value="2000-01-01" options={{ minDate: "2000-01-01" }} />)
+        const input = component.find("input").instance()
+        expect(input.value).toBe("2000-01-01")
+        component.setProps({ value: "1999-01-01", options: { minDate: '1999-01-01' }});
+        expect(input.value).toBe("1999-01-01")
+        component.unmount()
+      })
+    })
   })
 
   describe("#render", () => {
