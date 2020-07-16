@@ -16,7 +16,7 @@ module.exports = {
   },
 
   module: {
-    loaders: [{
+    rules: [{
       loader: 'babel-loader',
       exclude: /node_modules/,
       options: config
