@@ -88,7 +88,7 @@ Same as below
 
 > `Object` | optional
 
-- `Flatpickr options`: you can pass all `Flatpickr parameters` here.
+- `Flatpickr options`: you can pass all `Flatpickr parameters` [here](https://flatpickr.js.org/options).
 - All `Flatpickr` [hooks][hooks] can be passed within this option too.
 
 _*Example*_:
