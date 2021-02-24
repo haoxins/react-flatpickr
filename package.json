@@ -1,6 +1,6 @@
 {
   "name": "react-flatpickr",
-  "version": "3.10.6",
+  "version": "3.10.7",
   "description": "flatpickr for React",
   "main": "build/index.js",
   "scripts": {
@@ -65,9 +65,9 @@
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.3"
   },
-	"peerDependencies": {
+  "peerDependencies": {
     "react": "^17.0.1"
-	},
+  },
   "eslintConfig": {
     "extends": [
       "ok"
