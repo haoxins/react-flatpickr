@@ -19,7 +19,7 @@
     "react"
   ],
   "files": [
-    "build/",
+    "build/index.js",
     "lib/"
   ],
   "author": "haoxin",
