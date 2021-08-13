@@ -61,7 +61,7 @@ class App extends Component {
       <Flatpickr
         data-enable-time
         value={date}
-        onChange={date => {
+        onChange={([date]) => {
           this.setState({ date });
         }}
       />
