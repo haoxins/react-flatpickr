@@ -149,9 +149,9 @@ The following `props` are provided in order to customize the `Flatpickr's functi
 
 > `function` | optional
 
-## Advanced props
+## Advanced
 
-### render
+### render prop
 
 > `function` | optional
 
@@ -177,6 +177,38 @@ _Example usage_:
         }
       />
     )
+  }
+```
+
+### flatpickr instance
+
+You can directly manipulate the [`flatpickr` instance](https://flatpickr.js.org/instance-methods-properties-elements/) using the `flatpickr` property on the component.
+
+_Example_:
+
+```js
+  import React, { useRef } from "react";
+  import Flatpickr from "react-flatpickr";
+
+  import "flatpickr/dist/flatpickr.css";
+
+  export default function App() {
+    const fp = useRef(null);
+
+    return (
+      <div>
+        <Flatpickr ref={fp} />
+        <button
+          type="button"
+          onClick={() => {
+            if (!fp?.current?.flatpickr) return;
+            fp.current.flatpickr.clear();
+          }}
+        >
+          Clear
+        </button>
+      </div>
+    );
   }
 ```
 
