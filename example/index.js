@@ -11,7 +11,9 @@ class App extends Component {
     v: '2016-01-01 01:01',
     onChange: (_, str) => {
       console.info(str)
-    }
+    },
+    startDate: new Date(),
+    endDate: new Date(),
   }
 
   componentDidMount() {
@@ -26,7 +28,11 @@ class App extends Component {
   }
 
   render() {
-    const { v } = this.state
+    const { v, startDate, endDate } = this.state
+
+    const sharedOptions = {
+      enableTime: true,
+    }
 
     return (
       <main>
@@ -79,6 +85,31 @@ class App extends Component {
               </div>
             )
           }} />
+
+      <div>
+        <h2>Shared</h2>
+        <Flatpickr
+          value={startDate} options={sharedOptions} onChange={(date) => {
+            this.setState(state => ({
+              ...state,
+              startDate: date,
+            }))
+          }} />
+        <Flatpickr
+          value={endDate} options={sharedOptions} onChange={(date) => {
+            this.setState(state => ({
+              ...state,
+              endDate: date,
+            }))
+          }} />
+
+        <dl>
+          <dt>Start</dt>
+          <dd>{startDate.toString()}</dd>
+          <dt>End</dt>
+          <dd>{endDate.toString()}</dd>
+        </dl>
+      </div>
       </main>
     )
   }
