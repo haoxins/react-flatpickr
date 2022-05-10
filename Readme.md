@@ -17,6 +17,7 @@
   - [className](#className)
 - [Event handlers](#event-handlers)
 - [Advanced props](#advanced-props)
+- [Localization](#localization)
 - [Troubleshooting](#troubleshooting)
 
 ## Installation
@@ -211,7 +212,33 @@ _Example_:
     );
   }
 ```
+## Localization
+You can change the localizaation using the ``locale`` property. Credit to [@leandrovieiras](https://github.com/leandrovieiras)
 
+_Example_:
+
+```js
+  import React, { useRef } from "react";
+  import Flatpickr from "react-flatpickr";
+
+  import "flatpickr/dist/flatpickr.css";
+
+  export default function App() {
+    const fp = useRef(null);
+
+    return (
+      <div>
+        <Flatpickr ref={fp}
+          options={{
+            dateFormat: 'd M, Y',
+            inline: true,
+            locale: 'pt'
+          }} />
+      </div>
+    );
+  }
+```
+The ``default`` localization is ``English (en)``. The localization options are the same as listed in [flatpickr](https://github.com/flatpickr/flatpickr/tree/master/src/l10n) documentation.
 ## Themes
 
 Please import themes directly from the `flatpickr` dependency.
