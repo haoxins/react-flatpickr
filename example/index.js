@@ -12,6 +12,7 @@ class App extends Component {
     onChange: (_, str) => {
       console.info(str)
     },
+    range: [new Date()],
     startDate: new Date(),
     endDate: new Date(),
   }
@@ -28,7 +29,7 @@ class App extends Component {
   }
 
   render() {
-    const { v, startDate, endDate } = this.state
+    const { v, startDate, endDate, range } = this.state
 
     const sharedOptions = {
       enableTime: true,
@@ -54,8 +55,14 @@ class App extends Component {
           onChange={(_, str) => console.info(str)} />
         <Flatpickr value={v} options={{minDate: '2016-11-01'}}
           onChange={(_, str) => console.info(str)} />
-        <Flatpickr value={[v, '2016-01-10']} options={{mode: 'range'}}
-          onChange={(_, str) => console.info(str)} />
+        <Flatpickr value={range} options={{mode: 'range'}}
+          onChange={(dates, str) => {
+            this.setState(state => ({
+              ...state,
+              range: dates,
+            }))
+            console.info('range changed', dates, str)}
+          } />
         <Flatpickr onChange={this.state.onChange}
           onOpen={() => { console.info('opened (by prop)') }}
           options={{
@@ -105,9 +112,9 @@ class App extends Component {
 
         <dl>
           <dt>Start</dt>
-          <dd>{startDate.toString()}</dd>
+          <dd>{startDate?.toString()}</dd>
           <dt>End</dt>
-          <dd>{endDate.toString()}</dd>
+          <dd>{endDate?.toString()}</dd>
         </dl>
       </div>
       </main>
