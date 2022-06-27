@@ -15,6 +15,9 @@ class App extends Component {
     range: [new Date()],
     startDate: new Date(),
     endDate: new Date(),
+    handler: (dates => {
+      console.log('initial handler', dates)
+    })
   }
 
   componentDidMount() {
@@ -50,7 +53,19 @@ class App extends Component {
           }}
         />
         <Flatpickr data-enable-time defaultValue='2016-11-11 11:11'
-          onChange={(_, str) => console.info(str)} />
+          onChange={this.state.handler} />
+        <button type="button"
+          onClick={() => {
+            this.setState(state => ({
+              ...state,
+              handler: (dates) => {
+                console.log('new handler', dates)
+              }
+            }))
+          }}
+        >
+          Change handler
+        </button>
         <Flatpickr data-enable-time value={v}
           onChange={(_, str) => console.info(str)} />
         <Flatpickr value={v} options={{minDate: '2016-11-01'}}
