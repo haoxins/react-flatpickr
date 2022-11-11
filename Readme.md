@@ -149,7 +149,7 @@ The following `props` are provided in order to customize the `Flatpickr's functi
 
 > `function` | optional
 
-## Advanced
+## Advanced props
 
 ### render prop
 
