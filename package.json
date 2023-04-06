@@ -14,7 +14,6 @@
     "example": "npm run build && webpack --config example/webpack.js",
     "dev": "echo 'Please open the example directory to view the example' && webpack-dev-server --config example/webpack.js",
     "lint": "eslint lib && eslint example",
-    "start": "vite build --watch",
     "build": "vite build",
     "prepublishOnly": "npm run build",
     "test": "jest",
