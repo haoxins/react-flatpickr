@@ -9,7 +9,7 @@ export default defineConfig({
   plugins: [react()],
   build: {
     lib: {
-      entry: resolve(__dirname, 'src/index.js'),
+      entry: resolve(__dirname, 'lib/index.js'),
       name: packageJSON.name,
       formats: ['cjs', 'es'],
     },

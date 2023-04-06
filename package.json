@@ -2,13 +2,20 @@
   "name": "react-flatpickr",
   "version": "3.10.13",
   "description": "flatpickr for React",
-  "type": "module",
-  "main": "build/index.js",
+  "main": "build/react-flatpickr",
+  "module": "build/react-flatpickr.mjs",
+  "exports": {
+    ".": {
+      "import": "./build/react-flatpickr.mjs",
+      "require": "./build/react-flatpickr.cjs"
+    }
+  },
   "scripts": {
     "example": "npm run build && webpack --config example/webpack.js",
     "dev": "echo 'Please open the example directory to view the example' && webpack-dev-server --config example/webpack.js",
     "lint": "eslint lib && eslint example",
-    "build": "babel lib --out-dir build",
+    "start": "vite build --watch",
+    "build": "vite build",
     "prepublishOnly": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -20,8 +27,7 @@
     "react"
   ],
   "files": [
-    "build/index.js",
-    "lib/"
+    "build"
   ],
   "author": "haoxin",
   "license": "MIT",

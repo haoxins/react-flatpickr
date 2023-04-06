@@ -24,7 +24,7 @@ const callbacks = [
 
 const callbackPropTypes = PropTypes.func
 
-class DateTimePicker extends Component {
+export class DateTimePicker extends Component {
   static propTypes = {
     defaultValue: PropTypes.string,
     options: PropTypes.object,
@@ -184,5 +184,3 @@ function mergeHooks(inputOptions, props) {
 
   return options
 }
-
-export default DateTimePicker
