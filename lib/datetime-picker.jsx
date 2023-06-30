@@ -124,6 +124,8 @@ export class DateTimePicker extends Component {
   }
 
   destroyFlatpickrInstance = () => {
+    if (!this.flatpickr) return
+    
     const { onDestroy } = this.props
     if (onDestroy) onDestroy(this.flatpickr)
     this.flatpickr.destroy()
