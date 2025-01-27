@@ -59,7 +59,7 @@
     "vite": "^4.2.1"
   },
   "peerDependencies": {
-    "react": ">=16, <=18"
+    "react": ">=16, <=19"
   },
   "eslintConfig": {
     "extends": [
