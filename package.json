@@ -20,7 +20,7 @@
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage"
   },
-  "repository": "coderhaoxin/react-flatpickr",
+  "repository": "haoxins/react-flatpickr",
   "keywords": [
     "flatpickr",
     "react"
