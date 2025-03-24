@@ -2,7 +2,7 @@
 import 'flatpickr/dist/themes/material_green.css'
 
 import React, { Component } from 'react'
-import {createRoot} from 'react-dom/client'
+import { createRoot } from 'react-dom/client'
 
 import Flatpickr from '../lib/index.js'
 
