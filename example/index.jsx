@@ -2,7 +2,7 @@
 import 'flatpickr/dist/themes/material_green.css'
 
 import React, { Component } from 'react'
-import { render } from 'react-dom'
+import {createRoot} from 'react-dom/client'
 
 import Flatpickr from '../lib/index.js'
 
@@ -138,5 +138,5 @@ class App extends Component {
 }
 
 window.init = () => {
-  render(<App />, document.querySelector('#container'))
+  createRoot(document.querySelector('#container')).render(<App />)
 }
