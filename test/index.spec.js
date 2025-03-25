@@ -1,6 +1,6 @@
 import React from "react"
-import {expect, describe, it} from "@jest/globals"
-import {fireEvent, render} from '@testing-library/react'
+import { expect, describe, it } from "@jest/globals"
+import { fireEvent, render } from '@testing-library/react'
 import DateTimePicker from "../lib"
 
 describe("react-flatpickr", () => {
