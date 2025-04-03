@@ -67,7 +67,9 @@ export class DateTimePicker extends Component {
       const key = optionsKeys[index]
       let value = options[key]
 
-      if (value !== prevOptions[key]) {
+      // Using toString() because a regular !== does not work and causes the 
+      // component to re-render even when the properties have not been changed
+      if (value.toString() !== prevOptions[key].toString()) {
         // Hook handlers must be set as an array
         if (hooks.indexOf(key) !== -1 && !Array.isArray(value)) {
           value = [value]
