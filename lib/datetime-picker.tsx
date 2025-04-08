@@ -1,21 +1,33 @@
-import React, {useEffect, useRef, FC, ReactNode, ChangeEventHandler} from 'react';
-import flatpickr from 'flatpickr';
-import {Options, DateOption} from 'flatpickr/dist/types/options';
+import React, {
+  useEffect,
+  useRef,
+  FC,
+  ReactNode,
+  ChangeEventHandler,
+} from "react";
+import flatpickr from "flatpickr";
+import {
+  Options,
+  DateOption,
+  Plugin,
+  ParsedOptions,
+} from "flatpickr/dist/types/options";
+// import { ParseOptions } from "querystring";
 
-const callbacks = ['onCreate', 'onDestroy'] as const;
+const callbacks = ["onCreate", "onDestroy"] as const;
 const hooks = [
-  'onChange',
-  'onOpen',
-  'onClose',
-  'onMonthChange',
-  'onYearChange',
-  'onReady',
-  'onValueUpdate',
-  'onDayCreate'
+  "onChange",
+  "onOpen",
+  "onClose",
+  "onMonthChange",
+  "onYearChange",
+  "onReady",
+  "onValueUpdate",
+  "onDayCreate",
 ] as const;
 
 type OptionsType = {
-    [k in keyof Options]?: Options[k];
+  [k in keyof Options]?: Options[k];
 };
 
 interface DateTimePickerProps {
@@ -31,31 +43,42 @@ interface DateTimePickerProps {
   onDayCreate?: flatpickr.Options.Hook;
   onCreate?: (arg0?: flatpickr.Instance | null) => void;
   onDestroy?: (arg0?: flatpickr.Instance | null) => void;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  value?: string | Array<any> | object | number;
+
+  value?: DateOption | DateOption[];
   children?: ReactNode;
   className?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  render?: (props: any, handleNodeChange: (node: HTMLElement | null) => void) => ReactNode;
+
+  render?: (
+    props: any,
+    handleNodeChange: (node: HTMLElement | null) => void,
+  ) => ReactNode;
 }
 
-const mergeHooks = (inputOptions: flatpickr.Options.Options, props: DateTimePickerProps): OptionsType => {
-  const options: OptionsType = { ...inputOptions };
+const mergeHooks = (
+  inputOptions: flatpickr.Options.Options,
+  props: DateTimePickerProps,
+): OptionsType => {
+  // const options: OptionsType = { ...inputOptions };
 
   hooks.forEach((hook: string) => {
-    if (props.hasOwnProperty(hook)) {
-      if (options[hook] && !Array.isArray(options[hook])) {
-        options[hook] = [options[hook]];
-      } else if (!options[hook]) {
-        options[hook] = [];
+    if (props[hook as keyof DateTimePickerProps]) {
+      if (
+        inputOptions[hook as keyof Options] &&
+        !Array.isArray(inputOptions[hook as keyof Options])
+      ) {
+        (inputOptions as any)[hook] = [(inputOptions as any)[hook]];
+      } else if (!(inputOptions as any)[hook]) {
+        (inputOptions as any)[hook] = [];
       }
 
-      const propHook = Array.isArray(props[hook]) ? props[hook] : [props[hook]];
-      options[hook].push(...propHook);
+      const propHook = Array.isArray(props[hook as keyof DateTimePickerProps])
+        ? props[hook as keyof DateTimePickerProps]
+        : [props[hook as keyof DateTimePickerProps]];
+      (inputOptions as any)[hook].push(...[propHook]);
     }
   });
 
-  return options;
+  return inputOptions;
 };
 
 export const DateTimePicker: FC<DateTimePickerProps> = ({
@@ -73,16 +96,20 @@ export const DateTimePicker: FC<DateTimePickerProps> = ({
 
   useEffect(() => {
     const createFlatpickrInstance = () => {
-      let mergedOptions = {
+      let mergedOptions: OptionsType = {
         onClose: () => {
           nodeRef.current?.blur && nodeRef.current.blur();
         },
         ...options,
       };
+      if (!mergedOptions) return;
 
       mergedOptions = mergeHooks(mergedOptions, props);
 
-      flatpickrRef.current = flatpickr(nodeRef.current as HTMLElement, mergedOptions);
+      flatpickrRef.current = flatpickr(
+        nodeRef.current as HTMLElement,
+        mergedOptions,
+      );
 
       if (value !== undefined) {
         flatpickrRef.current.setDate(value, false);
@@ -113,14 +140,17 @@ export const DateTimePicker: FC<DateTimePickerProps> = ({
       const optionsKeys = Object.getOwnPropertyNames(mergedOptions);
       for (let index = optionsKeys.length - 1; index >= 0; index--) {
         const key = optionsKeys[index];
-        let optionValue = mergedOptions[key];
+        let optionValue = mergedOptions[key as keyof OptionsType];
 
-        if (optionValue.toString() !== flatpickrRef.current.config[key]?.toString()) {
+        if (
+          optionValue?.toString() !==
+          flatpickrRef.current.config[key as keyof ParsedOptions]?.toString()
+        ) {
           if (hooks.includes(key as any) && !Array.isArray(optionValue)) {
-            optionValue = [optionValue];
+            optionValue = [optionValue] as unknown as Plugin;
           }
 
-          flatpickrRef.current.set(key, optionValue);
+          flatpickrRef.current.set(key as any, optionValue);
         }
       }
 
