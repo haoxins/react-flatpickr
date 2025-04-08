@@ -1,6 +1,6 @@
-import React, {useEffect, useRef, FC, ReactNode, ChangeEventHandler} from 'react';
+import React, { useEffect, useRef, FC, ReactNode, ChangeEventHandler } from 'react';
 import flatpickr from 'flatpickr';
-import {Options, DateOption} from 'flatpickr/dist/types/options';
+import { Options, DateOption } from 'flatpickr/dist/types/options';
 
 const callbacks = ['onCreate', 'onDestroy'] as const;
 const hooks = [
@@ -15,7 +15,7 @@ const hooks = [
 ] as const;
 
 type OptionsType = {
-    [k in keyof Options]?: Options[k];
+  [k in keyof Options]?: Options[k];
 };
 
 interface DateTimePickerProps {
@@ -77,7 +77,7 @@ export const DateTimePicker: FC<DateTimePickerProps> = ({
         onClose: () => {
           nodeRef.current?.blur && nodeRef.current.blur();
         },
-        ...options,
+        ...options
       };
 
       mergedOptions = mergeHooks(mergedOptions, props);

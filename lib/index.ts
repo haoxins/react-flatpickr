@@ -1,3 +1,3 @@
-import { DateTimePicker } from "./datetime-picker.tsx";
+import { DateTimePicker } from './datetime-picker';
 
 export default DateTimePicker;
