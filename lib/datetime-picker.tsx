@@ -1,7 +1,6 @@
 import React, {useEffect, useRef, FC, ReactNode, ChangeEventHandler} from 'react';
 import flatpickr from 'flatpickr';
-import DateOption = flatpickr.Options.DateOption;
-import {Options} from "flatpickr/dist/types/options";
+import {Options, DateOption} from 'flatpickr/dist/types/options';
 
 const callbacks = ['onCreate', 'onDestroy'] as const;
 const hooks = [
