@@ -100,7 +100,7 @@ export const DateTimePicker: FC<DateTimePickerProps> = ({
         onClose: () => {
           nodeRef.current?.blur && nodeRef.current.blur();
         },
-        ...options,
+        ...options
       };
       if (!mergedOptions) return;
 
