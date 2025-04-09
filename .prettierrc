@@ -2,5 +2,17 @@
   "semi": true,
   "trailingComma": "none",
   "singleQuote": true,
-  "printWidth": 120
+  "printWidth": 120,
+  "arrowParens": "always",
+  "bracketSpacing": false,
+  "endOfLine": "auto",
+  "htmlWhitespaceSensitivity": "css",
+  "insertPragma": false,
+  "jsxSingleQuote": false,
+  "proseWrap": "preserve",
+  "quoteProps": "as-needed",
+  "rangeStart": 0,
+  "requirePragma": false,
+  "tabWidth": 2,
+  "useTabs": false
 }

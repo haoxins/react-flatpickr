@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, FC, ReactNode, ChangeEventHandler } from 'react';
+import React, {useEffect, useRef, FC, ReactNode, ChangeEventHandler} from 'react';
 import flatpickr from 'flatpickr';
-import { Options, DateOption, Plugin, ParsedOptions } from 'flatpickr/dist/types/options';
-// import { ParseOptions } from "querystring";
+import {Options, DateOption, Plugin, ParsedOptions} from 'flatpickr/dist/types/options';
 
 const callbacks = ['onCreate', 'onDestroy'] as const;
 const hooks = [
@@ -41,8 +40,6 @@ interface DateTimePickerProps {
 }
 
 const mergeHooks = (inputOptions: flatpickr.Options.Options, props: DateTimePickerProps): OptionsType => {
-  // const options: OptionsType = { ...inputOptions };
-
   hooks.forEach((hook: string) => {
     if (props[hook as keyof DateTimePickerProps]) {
       if (inputOptions[hook as keyof Options] && !Array.isArray(inputOptions[hook as keyof Options])) {
@@ -61,16 +58,8 @@ const mergeHooks = (inputOptions: flatpickr.Options.Options, props: DateTimePick
   return inputOptions;
 };
 
-export const DateTimePicker: FC<DateTimePickerProps> = ({
-  defaultValue,
-  options = {},
-  value,
-  children,
-  render,
-  onCreate,
-  onDestroy,
-  ...props
-}) => {
+export const DateTimePicker: FC<DateTimePickerProps> = (props) => {
+  const {defaultValue, className, options = {}, value, children, render, onCreate, onDestroy, onChange} = props;
   const nodeRef = useRef<HTMLElement | null>(null);
   const flatpickrRef = useRef<flatpickr.Instance | null>(null);
 
@@ -78,7 +67,7 @@ export const DateTimePicker: FC<DateTimePickerProps> = ({
     const createFlatpickrInstance = () => {
       let mergedOptions: OptionsType = {
         onClose: () => {
-          nodeRef.current?.blur && nodeRef.current.blur();
+          if (nodeRef.current?.blur) nodeRef.current.blur();
         },
         ...options
       };
@@ -146,7 +135,7 @@ export const DateTimePicker: FC<DateTimePickerProps> = ({
   });
 
   if (render) {
-    return render({ ...props, defaultValue, value }, handleNodeChange);
+    return render({...props, defaultValue, value}, handleNodeChange);
   }
 
   return options.wrap ? (
@@ -154,6 +143,12 @@ export const DateTimePicker: FC<DateTimePickerProps> = ({
       {children}
     </div>
   ) : (
-    <input {...props} defaultValue={defaultValue} ref={handleNodeChange} />
+    <input
+      value={value?.toString()}
+      onChange={onChange}
+      className={className}
+      defaultValue={defaultValue}
+      ref={handleNodeChange}
+    />
   );
 };

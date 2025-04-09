@@ -12,7 +12,7 @@
   },
   "scripts": {
     "lint": "eslint lib example test --quiet --fix",
-    "format": "prettier --config .prettierrc 'lib/*.{ts,tsx}' --write",
+    "format": "prettier --config .prettierrc 'lib/*.{ts,tsx}' 'test/*.{ts,tsx}' --write",
     "build": "tsc -b && vite build",
     "test": "jest --env=jsdom",
     "test:watch": "jest --watch --env=jsdom",
