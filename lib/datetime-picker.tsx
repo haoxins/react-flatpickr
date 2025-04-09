@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, FC, ReactNode, ChangeEventHandler} from 'react';
+import React, {useEffect, useRef, FC, ReactNode, ChangeEventHandler, useMemo} from 'react';
 import flatpickr from 'flatpickr';
 import {Options, DateOption, Plugin, ParsedOptions} from 'flatpickr/dist/types/options';
 
@@ -58,7 +58,8 @@ const mergeHooks = (inputOptions: flatpickr.Options.Options, props: DateTimePick
   return inputOptions;
 };
 
-export const DateTimePicker: FC<DateTimePickerProps> = (props) => {
+export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
+  const props = useMemo(() => ({...defaultProps}), [defaultProps]);
   const {defaultValue, className, options = {}, value, children, render, onCreate, onDestroy, onChange} = props;
   const nodeRef = useRef<HTMLElement | null>(null);
   const flatpickrRef = useRef<flatpickr.Instance | null>(null);
