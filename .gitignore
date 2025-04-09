@@ -8,9 +8,4 @@ build/
 .idea/*
 !.idea/codeStyles
 !.idea/runConfigurations
-jest.config.js
 tsconfig.tsbuildinfo
-lib/datetime-picker.js
-lib/index.js
-test/index.spec.js
-vite.config.js
