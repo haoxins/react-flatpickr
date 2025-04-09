@@ -8,3 +8,4 @@ build/
 .idea/*
 !.idea/codeStyles
 !.idea/runConfigurations
+jest.config.js
