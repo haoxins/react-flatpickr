@@ -153,3 +153,5 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
     />
   );
 };
+
+export default DateTimePicker;
