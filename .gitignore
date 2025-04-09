@@ -9,3 +9,4 @@ build/
 !.idea/codeStyles
 !.idea/runConfigurations
 jest.config.js
+tsconfig.tsbuildinfo

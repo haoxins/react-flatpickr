@@ -14,9 +14,9 @@
     "lint": "eslint lib example test --quiet --fix",
     "format": "prettier --config .prettierrc 'lib/*.{ts,tsx}' 'test/*.{ts,tsx}' --write",
     "build": "tsc -b && vite build",
-    "test": "jest --env=jsdom",
-    "test:watch": "jest --watch --env=jsdom",
-    "test:coverage": "jest --coverage --env=jsdom",
+    "test": "jest --config=jest.config.ts --env=jsdom",
+    "test:watch": "jest --config=jest.config.ts --watch --env=jsdom",
+    "test:coverage": "jest --config=jest.config.ts --coverage --env=jsdom",
     "prepublishOnly": "npm run build"
   },
   "repository": "haoxins/react-flatpickr",
