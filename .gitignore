@@ -9,3 +9,5 @@ build/
 !.idea/codeStyles
 !.idea/runConfigurations
 tsconfig.tsbuildinfo
+*.js
+!.babelrc.js
