@@ -12,10 +12,11 @@
   },
   "scripts": {
     "lint": "eslint lib example test --quiet --fix",
-    "build": "vite build",
-    "test": "jest --env=jsdom",
-    "test:watch": "jest --watch --env=jsdom",
-    "test:coverage": "jest --coverage --env=jsdom",
+    "format": "prettier --config .prettierrc 'lib/*.{ts,tsx}' 'test/*.{ts,tsx}' --write",
+    "build": "tsc -b && vite build",
+    "test": "jest --config=jest.config.ts --env=jsdom",
+    "test:watch": "jest --config=jest.config.ts --watch --env=jsdom",
+    "test:coverage": "jest --config=jest.config.ts --coverage --env=jsdom",
     "prepublishOnly": "npm run build"
   },
   "repository": "haoxins/react-flatpickr",
@@ -29,8 +30,7 @@
   "author": "haoxin",
   "license": "MIT",
   "dependencies": {
-    "flatpickr": "^4.6.13",
-    "prop-types": "^15.8.1"
+    "flatpickr": "^4.6.13"
   },
   "devDependencies": {
     "@babel/cli": "^7.26.4",
@@ -45,22 +45,29 @@
     "@babel/plugin-proposal-throw-expressions": "^7.25.9",
     "@babel/preset-env": "^7.26.9",
     "@babel/preset-react": "^7.26.3",
+    "@babel/preset-typescript": "^7.27.0",
     "@eslint/js": "^9.19.0",
     "@jest/globals": "^29.7.0",
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.2.0",
+    "@types/react": "^19.1.0",
     "@vitejs/plugin-react": "^4.3.4",
+    "babel-jest": "^29.7.0",
     "css-loader": "^7.1.2",
     "eslint": "^9.23.0",
     "eslint-plugin-react": "^7.37.4",
+    "eslint-plugin-ts-react-hooks": "^1.0.4",
     "globals": "^16.0.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
+    "prettier": "^3.5.3",
+    "react": "^19.1.0",
+    "react-dom": "^19.1.0",
+    "ts-node": "^10.9.2",
+    "typescript-eslint": "^8.29.1",
     "vite": "^6.2.3"
   },
   "peerDependencies": {
-    "react": ">=16, <=19"
+    "react": ">= 16 <= 19"
   }
 }

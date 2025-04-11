@@ -5,3 +5,9 @@ node_modules/
 coverage/
 build/
 .DS_Store
+.idea/*
+!.idea/codeStyles
+!.idea/runConfigurations
+tsconfig.tsbuildinfo
+**/*.js
+!.babelrc.js
