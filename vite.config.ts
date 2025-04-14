@@ -22,7 +22,6 @@ export default defineConfig({
         'react-dom',
         ...Object.keys(packageJSON.dependencies),
         ...Object.keys(packageJSON.peerDependencies),
-        'react/jsx-runtime',
       ],
       output: {
         globals: {
