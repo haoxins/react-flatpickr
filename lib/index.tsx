@@ -1,7 +1,6 @@
-import React, {useEffect, useRef, FC, useMemo, useCallback} from 'react';
+import React, {useEffect, useRef, FC, ReactNode, ChangeEventHandler, useMemo} from 'react';
 import flatpickr from 'flatpickr';
 import {Options, DateOption, Plugin, ParsedOptions} from 'flatpickr/dist/types/options';
-import {DateTimePickerProps, OptionsType} from '../types/react-flatpickr';
 
 const callbacks = ['onCreate', 'onDestroy'] as const;
 const hooks = [
@@ -15,62 +14,79 @@ const hooks = [
   'onDayCreate'
 ] as const;
 
+type OptionsType = {
+  [k in keyof Options]?: Options[k];
+};
+
+interface DateTimePickerProps {
+  defaultValue?: string;
+  options?: OptionsType;
+  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onOpen?: flatpickr.Options.Hook;
+  onClose?: flatpickr.Options.Hook;
+  onMonthChange?: flatpickr.Options.Hook;
+  onYearChange?: flatpickr.Options.Hook;
+  onReady?: flatpickr.Options.Hook;
+  onValueUpdate?: flatpickr.Options.Hook;
+  onDayCreate?: flatpickr.Options.Hook;
+  onCreate?: (arg0?: flatpickr.Instance | null) => void;
+  onDestroy?: (arg0?: flatpickr.Instance | null) => void;
+
+  value?: DateOption | DateOption[];
+  children?: ReactNode;
+  className?: string;
+
+  render?: (props: any, handleNodeChange: (node: HTMLElement | null) => void) => ReactNode;
+}
+
 const mergeHooks = (inputOptions: flatpickr.Options.Options, props: DateTimePickerProps): OptionsType => {
   hooks.forEach((hook: string) => {
-    const hookFn = props[hook as keyof DateTimePickerProps];
-    const existingHookFn = inputOptions[hook as keyof Options];
-    if (hookFn) {
-      if (existingHookFn && !Array.isArray(existingHookFn)) {
+    if (props[hook as keyof DateTimePickerProps]) {
+      if (inputOptions[hook as keyof Options] && !Array.isArray(inputOptions[hook as keyof Options])) {
         (inputOptions as any)[hook] = [(inputOptions as any)[hook]];
       } else if (!(inputOptions as any)[hook]) {
         (inputOptions as any)[hook] = [];
       }
 
-      const propHook = Array.isArray(hookFn) ? hookFn : [hookFn];
-      if ((inputOptions as any)[hook].length === 0) {
-        (inputOptions as any)[hook] = propHook;
-      } else {
-        (inputOptions as any)[hook].push(...propHook);
-      }
+      const propHook = Array.isArray(props[hook as keyof DateTimePickerProps])
+        ? props[hook as keyof DateTimePickerProps]
+        : [props[hook as keyof DateTimePickerProps]];
+      (inputOptions as any)[hook].push(...[propHook]);
     }
-  });
-
-  hooks.forEach((hook) => {
-    delete (props as any)[hook];
-  });
-  callbacks.forEach((callback) => {
-    delete (props as any)[callback];
   });
 
   return inputOptions;
 };
 
-export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
+const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
   const props = useMemo(() => ({...defaultProps}), [defaultProps]);
-  const {defaultValue, className, options = {}, value, children, render, onChange} = props;
-  const mergedOptions = useMemo(() => mergeHooks(options, props), [options, props]);
+  const {defaultValue, className, options = {}, value, children, render, onCreate, onDestroy, onChange} = props;
   const nodeRef = useRef<HTMLElement | null>(null);
   const flatpickrRef = useRef<flatpickr.Instance | null>(null);
 
   useEffect(() => {
     const createFlatpickrInstance = () => {
-      mergedOptions.onClose =
-        mergedOptions.onClose ||
-        (() => {
+      let mergedOptions: OptionsType = {
+        onClose: () => {
           if (nodeRef.current?.blur) nodeRef.current.blur();
-        });
+        },
+        ...options
+      };
+      if (!mergedOptions) return;
+
+      mergedOptions = mergeHooks(mergedOptions, props);
 
       flatpickrRef.current = flatpickr(nodeRef.current as HTMLElement, mergedOptions);
 
-      if (flatpickrRef.current && value !== undefined) {
+      if (value !== undefined) {
         flatpickrRef.current.setDate(value, false);
       }
 
-      if (defaultProps.onCreate) defaultProps.onCreate(flatpickrRef.current);
+      if (onCreate) onCreate(flatpickrRef.current);
     };
 
     const destroyFlatpickrInstance = () => {
-      if (defaultProps.onDestroy) defaultProps.onDestroy(flatpickrRef.current);
+      if (onDestroy) onDestroy(flatpickrRef.current);
       if (flatpickrRef.current) {
         flatpickrRef.current.destroy();
       }
@@ -79,7 +95,15 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
 
     createFlatpickrInstance();
 
+    return () => {
+      destroyFlatpickrInstance();
+    };
+  }, [options, value, onCreate, onDestroy, props]);
+
+  useEffect(() => {
     if (flatpickrRef.current) {
+      const mergedOptions = mergeHooks(options, props);
+
       const optionsKeys = Object.getOwnPropertyNames(mergedOptions);
       for (let index = optionsKeys.length - 1; index >= 0; index--) {
         const key = optionsKeys[index];
@@ -98,15 +122,18 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
         flatpickrRef.current.setDate(value as DateOption | DateOption[], false);
       }
     }
+  }, [options, value, props]);
 
-    return () => {
-      destroyFlatpickrInstance();
-    };
-  }, [mergedOptions, options, props, value, defaultProps]);
-
-  const handleNodeChange = useCallback((node: HTMLElement | null) => {
+  const handleNodeChange = (node: HTMLElement | null) => {
     nodeRef.current = node;
-  }, []);
+  };
+
+  hooks.forEach((hook) => {
+    delete (props as any)[hook];
+  });
+  callbacks.forEach((callback) => {
+    delete (props as any)[callback];
+  });
 
   if (render) {
     return render({...props, defaultValue, value}, handleNodeChange);
@@ -126,3 +153,5 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
     />
   );
 };
+
+export default DateTimePicker;
