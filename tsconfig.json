@@ -11,8 +11,8 @@
     "jsx": "react-jsx",
     "declaration": true,
     "outDir": "build",
-    "types": ["vite/client", "node", "react"],
+    "types": ["vite/client", "node", "react"]
   },
-  "include": ["lib/**/*"],
+  "include": ["lib"],
   "exclude": ["node_modules"]
 }

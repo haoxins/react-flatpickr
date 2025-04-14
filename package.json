@@ -5,16 +5,16 @@
   "exports": {
     ".": {
       "import": {
-        "types": "./types/react-flatpickr.d.ts",
-        "default": "./types/react-flatpickr.mjs"
+        "types": "./build/react-flatpickr.d.ts",
+        "default": "./build/react-flatpickr.mjs"
       },
       "require": {
-        "types": "./types/react-flatpickr.d.ts",
-        "default": "./build/react-flatpickr.cjs"
+        "types": "./build/react-flatpickr.d.ts",
+        "default": "./build/react-flatpickr.js"
       }
     }
   },
-  "types": "./types/react-flatpickr.d.ts",
+  "types": "./build/react-flatpickr.d.ts",
   "main": "./build/react-flatpickr.js",
   "module": "./build/react-flatpickr.mjs",
   "scripts": {

@@ -45,7 +45,7 @@ const mergeHooks = (inputOptions: flatpickr.Options.Options, props: DateTimePick
   return inputOptions;
 };
 
-const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
+export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
   const props = useMemo(() => ({...defaultProps}), [defaultProps]);
   const {defaultValue, className, options = {}, value, children, render, onChange} = props;
   const mergedOptions = useMemo(() => mergeHooks(options, props), [options, props]);
@@ -125,4 +125,3 @@ const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
   );
 };
 
-export default DateTimePicker;

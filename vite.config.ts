@@ -10,7 +10,7 @@ export default defineConfig({
   build: {
     sourcemap: true,
     lib: {
-      entry: resolve(__dirname, 'lib/index.js'),
+      entry: resolve(__dirname, 'lib/index.ts'),
       name: packageJSON.name,
       formats: ['cjs', 'es'],
     },
