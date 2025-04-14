@@ -30,7 +30,7 @@ const mergeHooks = (inputOptions: flatpickr.Options.Options, props: DateTimePick
       if ((inputOptions as any)[hook].length === 0) {
         (inputOptions as any)[hook] = propHook;
       } else {
-        (inputOptions as any)[hook].push(propHook);
+        (inputOptions as any)[hook].push(...propHook);
       }
     }
   });
