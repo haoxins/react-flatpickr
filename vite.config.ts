@@ -1,13 +1,14 @@
-import { resolve } from 'path'
+import {resolve} from 'path';
+import react from '@vitejs/plugin-react';
+import dts from 'vite-plugin-dts';
+import {defineConfig} from 'vite';
 
-import react from '@vitejs/plugin-react'
-import { defineConfig } from 'vite'
-
-const packageJSON = require('./package.json')
+const packageJSON = require('./package.json');
 
 export default defineConfig({
-  plugins: [react()],
+  plugins: [dts({rollupTypes: true}), react()],
   build: {
+    sourcemap: true,
     lib: {
       entry: resolve(__dirname, 'lib/index.js'),
       name: packageJSON.name,
@@ -19,7 +20,15 @@ export default defineConfig({
         ...Object.keys(packageJSON.dependencies),
         ...Object.keys(packageJSON.peerDependencies),
         'react/jsx-runtime',
+        'react',
+        'react-dom'
       ],
-    },
-  },
-})
+      output: {
+        globals: {
+          react: 'React',
+          'react-dom': 'ReactDOM'
+        }
+      }
+    }
+  }
+});
