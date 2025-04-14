@@ -14,6 +14,7 @@
       }
     }
   },
+  "type": "module",
   "types": "./build/react-flatpickr.d.ts",
   "main": "./build/react-flatpickr.js",
   "module": "./build/react-flatpickr.mjs",

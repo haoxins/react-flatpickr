@@ -17,11 +17,11 @@ export default defineConfig({
     outDir: 'build',
     rollupOptions: {
       external: [
-        ...Object.keys(packageJSON.dependencies),
-        ...Object.keys(packageJSON.peerDependencies),
         'react/jsx-runtime',
         'react',
-        'react-dom'
+        'react-dom',
+        ...Object.keys(packageJSON.dependencies),
+        ...Object.keys(packageJSON.peerDependencies),
       ],
       output: {
         globals: {
