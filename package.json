@@ -20,7 +20,7 @@
   "module": "./build/react-flatpickr.mjs",
   "scripts": {
     "lint": "eslint lib example test --quiet --fix",
-    "format": "prettier --config .prettierrc 'lib/*.{ts,tsx}' 'test/*.{ts,tsx}' --write",
+    "format": "prettier --config .prettierrc 'lib/*.{ts,tsx}' 'example/*' 'test/*.{ts,tsx}' --write",
     "build": "tsc -b && vite build",
     "test": "jest --config=jest.config.ts --env=jsdom",
     "test:watch": "jest --config=jest.config.ts --watch --env=jsdom",
