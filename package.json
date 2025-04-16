@@ -2,14 +2,22 @@
   "name": "react-flatpickr",
   "version": "4.0.2",
   "description": "flatpickr for React",
-  "main": "build/react-flatpickr",
-  "module": "build/react-flatpickr.mjs",
   "exports": {
     ".": {
-      "import": "./build/react-flatpickr.mjs",
-      "require": "./build/react-flatpickr.js"
+      "import": {
+        "types": "./build/react-flatpickr.d.ts",
+        "default": "./build/react-flatpickr.mjs"
+      },
+      "require": {
+        "types": "./build/react-flatpickr.d.ts",
+        "default": "./build/react-flatpickr.js"
+      }
     }
   },
+  "type": "module",
+  "types": "./build/react-flatpickr.d.ts",
+  "main": "./build/react-flatpickr.js",
+  "module": "./build/react-flatpickr.mjs",
   "scripts": {
     "lint": "eslint lib example test --quiet --fix",
     "format": "prettier --config .prettierrc 'lib/*.{ts,tsx}' 'test/*.{ts,tsx}' --write",
@@ -65,7 +73,8 @@
     "react-dom": "^19.1.0",
     "ts-node": "^10.9.2",
     "typescript-eslint": "^8.29.1",
-    "vite": "^6.2.3"
+    "vite": "^6.2.3",
+    "vite-plugin-dts": "^4.5.3"
   },
   "peerDependencies": {
     "react": ">= 16 <= 19"
