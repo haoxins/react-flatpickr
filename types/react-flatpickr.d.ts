@@ -1,4 +1,4 @@
-import {ChangeEventHandler, ReactNode} from 'react';
+import {ChangeEventHandler, ReactNode, RefObject} from 'react';
 import flatpickr from 'flatpickr';
 import {DateOption, Options} from 'flatpickr/dist/types/options';
 
@@ -25,6 +25,11 @@ export interface DateTimePickerProps {
   value?: DateOption | DateOption[];
   children?: ReactNode;
   className?: string;
+  ref?: RefObject<DateTimePickerHandle | undefined>;
 
   render?: (props: any, handleNodeChange: (node: HTMLElement | null) => void) => ReactNode;
+}
+
+export interface DateTimePickerHandle {
+  flatpickr?: flatpickr.Instance;
 }
