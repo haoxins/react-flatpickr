@@ -6,18 +6,18 @@
     ".": {
       "import": {
         "types": "./build/react-flatpickr.d.ts",
-        "default": "./build/react-flatpickr.mjs"
+        "default": "./build/react-flatpickr.js"
       },
       "require": {
         "types": "./build/react-flatpickr.d.ts",
-        "default": "./build/react-flatpickr.js"
+        "default": "./build/react-flatpickr.cjs"
       }
     }
   },
   "type": "module",
   "types": "./build/react-flatpickr.d.ts",
-  "main": "./build/react-flatpickr.js",
-  "module": "./build/react-flatpickr.mjs",
+  "main": "./build/react-flatpickr.cjs",
+  "module": "./build/react-flatpickr.js",
   "scripts": {
     "lint": "eslint lib example test --quiet --fix",
     "format": "prettier --config .prettierrc 'lib/*.{ts,tsx}' 'example/*' 'test/*.{ts,tsx}' --write",
