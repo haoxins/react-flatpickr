@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, FC, useMemo, useCallback, useImperativeHandle} from 'react';
+import React, {useEffect, useRef, FC, useMemo, useCallback, useImperativeHandle, ChangeEventHandler} from 'react';
 import flatpickr from 'flatpickr';
 import {Options, DateOption, Plugin, ParsedOptions} from 'flatpickr/dist/types/options';
 import {DateTimePickerProps, OptionsType} from '../types/react-flatpickr';
@@ -124,14 +124,23 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
     return render({...props, defaultValue, value}, handleNodeChange);
   }
 
+  const inputOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {
+    if (onChange) {
+      onChange([new Date(e.target.value)], value?.toString() || '', flatpickrRef.current!);
+    }
+  };
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const {onChange: _, ...divProps} = props;
+
   return options.wrap ? (
-    <div {...props} ref={handleNodeChange}>
+    <div {...divProps} ref={handleNodeChange}>
       {children}
     </div>
   ) : (
     <input
       value={value?.toString()}
-      onChange={onChange}
+      onChange={inputOnChange}
       className={className}
       defaultValue={defaultValue}
       ref={handleNodeChange}
