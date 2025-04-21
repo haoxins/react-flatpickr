@@ -47,7 +47,7 @@ const mergeHooks = (inputOptions: flatpickr.Options.Options, props: DateTimePick
 
 export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
   const props = useMemo(() => ({...defaultProps}), [defaultProps]);
-  const {defaultValue, className, options = {}, value, children, render, onChange} = props;
+  const {defaultValue, className, options = {}, value, children, render} = props;
   const mergedOptions = useMemo(() => mergeHooks(options, props), [options, props]);
   const nodeRef = useRef<HTMLElement | null>(null);
   const flatpickrRef = useRef<flatpickr.Instance>(undefined);
@@ -125,16 +125,10 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
   }
 
   return options.wrap ? (
-    <div {...props} ref={handleNodeChange}>
+    <div className="flatpickr" ref={handleNodeChange}>
       {children}
     </div>
   ) : (
-    <input
-      value={value?.toString()}
-      onChange={onChange}
-      className={className}
-      defaultValue={defaultValue}
-      ref={handleNodeChange}
-    />
+    <input value={value?.toString()} className={className} defaultValue={defaultValue} ref={handleNodeChange} />
   );
 };

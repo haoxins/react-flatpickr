@@ -1,4 +1,4 @@
-import {ChangeEventHandler, ReactNode, RefObject} from 'react';
+import {ReactNode, RefObject} from 'react';
 import flatpickr from 'flatpickr';
 import {DateOption, Options} from 'flatpickr/dist/types/options';
 
@@ -11,7 +11,7 @@ export type OptionsType = {
 export interface DateTimePickerProps {
   defaultValue?: string;
   options?: OptionsType;
-  onChange?: ChangeEventHandler<HTMLInputElement>;
+  onChange?: flatpickr.Options.Hook;
   onOpen?: flatpickr.Options.Hook;
   onClose?: flatpickr.Options.Hook;
   onMonthChange?: flatpickr.Options.Hook;
