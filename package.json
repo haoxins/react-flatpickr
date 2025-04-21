@@ -1,6 +1,6 @@
 {
   "name": "react-flatpickr",
-  "version": "4.0.4",
+  "version": "4.0.5",
   "description": "flatpickr for React",
   "exports": {
     ".": {
