@@ -2,7 +2,7 @@
   "compilerOptions": {
     "baseUrl": "./lib",
     "rootDir": "./lib",
-    "target": "es2018",
+    "target": "ESNext",
     "module": "CommonJS",
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

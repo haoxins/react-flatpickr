@@ -8,6 +8,10 @@ export type OptionsType = {
   [k in keyof Options]?: Options[k];
 };
 
+export interface DateTimePickerHandle {
+  flatpickr?: flatpickr.Instance;
+}
+
 export interface DateTimePickerProps {
   defaultValue?: string;
   options?: OptionsType;
@@ -28,8 +32,4 @@ export interface DateTimePickerProps {
   ref?: RefObject<DateTimePickerHandle | undefined>;
 
   render?: (props: any, handleNodeChange: (node: HTMLElement | null) => void) => ReactNode;
-}
-
-export interface DateTimePickerHandle {
-  flatpickr?: flatpickr.Instance;
 }

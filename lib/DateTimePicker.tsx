@@ -1,7 +1,8 @@
 import React, {useEffect, useRef, FC, useMemo, useCallback, useImperativeHandle} from 'react';
-import flatpickr from 'flatpickr';
+import {default as flatpickr} from 'flatpickr';
 import {Options, DateOption, Plugin, ParsedOptions} from 'flatpickr/dist/types/options';
-import {DateTimePickerProps, OptionsType} from '../types/react-flatpickr';
+import {DateTimePickerProps} from '../types/react-flatpickr';
+import type {OptionsType} from '../types/react-flatpickr';
 
 const callbacks = ['onCreate', 'onDestroy'] as const;
 const hooks = [
@@ -72,7 +73,8 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
           if (nodeRef.current?.blur) nodeRef.current.blur();
         });
 
-      flatpickrRef.current = flatpickr(nodeRef.current as HTMLElement, mergedOptions);
+      // @ts-expect-error for some reason the default import isnt working correctly
+      flatpickrRef.current = (flatpickr?.default || flatpickr)(nodeRef.current as HTMLElement, mergedOptions);
 
       if (flatpickrRef.current && value !== undefined) {
         flatpickrRef.current.setDate(value, false);
