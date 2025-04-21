@@ -5,6 +5,8 @@ import {createRoot} from 'react-dom/client';
 
 import Flatpickr from '../lib/index.js';
 
+import './index.css';
+
 class App extends Component {
   state = {
     v: '2016-01-01 01:01',
