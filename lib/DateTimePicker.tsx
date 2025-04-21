@@ -1,5 +1,5 @@
 import React, {useEffect, useRef, FC, useMemo, useCallback, useImperativeHandle} from 'react';
-import {default as flatpickr} from 'flatpickr';
+import flatpickr from 'flatpickr';
 import {Options, DateOption, Plugin, ParsedOptions} from 'flatpickr/dist/types/options';
 import {DateTimePickerProps} from '../types/react-flatpickr';
 import type {OptionsType} from '../types/react-flatpickr';
