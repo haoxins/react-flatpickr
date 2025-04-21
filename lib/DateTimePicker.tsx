@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, FC, useMemo, useCallback, useImperativeHandle, ChangeEventHandler} from 'react';
+import React, {useEffect, useRef, FC, useMemo, useCallback, useImperativeHandle} from 'react';
 import flatpickr from 'flatpickr';
 import {Options, DateOption, Plugin, ParsedOptions} from 'flatpickr/dist/types/options';
 import {DateTimePickerProps, OptionsType} from '../types/react-flatpickr';
@@ -47,7 +47,7 @@ const mergeHooks = (inputOptions: flatpickr.Options.Options, props: DateTimePick
 
 export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
   const props = useMemo(() => ({...defaultProps}), [defaultProps]);
-  const {defaultValue, className, options = {}, value, children, render, onChange} = props;
+  const {defaultValue, className, options = {}, value, children, render} = props;
   const mergedOptions = useMemo(() => mergeHooks(options, props), [options, props]);
   const nodeRef = useRef<HTMLElement | null>(null);
   const flatpickrRef = useRef<flatpickr.Instance>(undefined);
@@ -124,26 +124,11 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
     return render({...props, defaultValue, value}, handleNodeChange);
   }
 
-  const inputOnChange: ChangeEventHandler<HTMLInputElement> = (e) => {
-    if (onChange) {
-      onChange([new Date(e.target.value)], value?.toString() || '', flatpickrRef.current!);
-    }
-  };
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const {onChange: _, ...divProps} = props;
-
   return options.wrap ? (
-    <div {...divProps} ref={handleNodeChange}>
+    <div className="flatpickr" ref={handleNodeChange}>
       {children}
     </div>
   ) : (
-    <input
-      value={value?.toString()}
-      onChange={inputOnChange}
-      className={className}
-      defaultValue={defaultValue}
-      ref={handleNodeChange}
-    />
+    <input value={value?.toString()} className={className} defaultValue={defaultValue} ref={handleNodeChange} />
   );
 };
