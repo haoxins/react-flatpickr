@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, FC, useMemo, useCallback, useImperativeHandle} from 'react';
+import React, {useEffect, useRef, FC, useMemo, useCallback, useImperativeHandle, ChangeEventHandler} from 'react';
 import flatpickr from 'flatpickr';
 import {Options, DateOption, Plugin, ParsedOptions} from 'flatpickr/dist/types/options';
 import {DateTimePickerProps} from '../types/react-flatpickr';
@@ -48,7 +48,7 @@ const mergeHooks = (inputOptions: flatpickr.Options.Options, props: DateTimePick
 
 export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
   const props = useMemo(() => ({...defaultProps}), [defaultProps]);
-  const {defaultValue, className, options = {}, value, children, render} = props;
+  const {defaultValue, options = {}, value, children, render} = props;
   const mergedOptions = useMemo(() => mergeHooks(options, props), [options, props]);
   const nodeRef = useRef<HTMLElement | null>(null);
   const flatpickrRef = useRef<flatpickr.Instance>(undefined);
@@ -126,12 +126,27 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
     return render({...props, defaultValue, value}, handleNodeChange);
   }
 
+  const onChange: ChangeEventHandler<HTMLInputElement> = useCallback(
+    (e) => {
+      if (defaultProps && defaultProps.onChange) {
+        defaultProps.onChange([new Date(e.target.value)], value?.toString() || '', flatpickrRef.current!);
+      }
+    },
+    [defaultProps, value]
+  );
+
   return options.wrap ? (
     <div className="flatpickr" ref={handleNodeChange}>
       {children}
     </div>
   ) : (
     // @ts-expect-error just allow all the passed props to be passed to the input
-    <input {...props} value={value?.toString()} defaultValue={defaultValue} ref={handleNodeChange} />
+    <input
+      onChange={onChange}
+      {...props}
+      value={value?.toString()}
+      defaultValue={defaultValue}
+      ref={handleNodeChange}
+    />
   );
 };

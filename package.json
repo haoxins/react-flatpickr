@@ -19,14 +19,21 @@
   "main": "./build/react-flatpickr.cjs",
   "module": "./build/react-flatpickr.js",
   "scripts": {
-    "lint": "eslint lib example test --quiet --fix",
-    "format": "prettier --config .prettierrc 'lib/*.{ts,tsx}' 'example/*' 'test/*.{ts,tsx}' --write",
+    "lint": "eslint --quiet --fix lib example test",
+    "format": "prettier --config .prettierrc --write 'lib/*.{ts,tsx}' 'example/*' 'test/*.{ts,tsx}'",
     "build": "tsc -b && vite build",
     "test": "jest --config=jest.config.ts --env=jsdom",
     "test:watch": "jest --config=jest.config.ts --watch --env=jsdom",
     "test:coverage": "jest --config=jest.config.ts --coverage --env=jsdom",
     "prepublishOnly": "npm run build",
-    "examples": "vite --port 3000 --open"
+    "examples": "vite --port 3000 --open",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,css}": [
+      "eslint --fix",
+      "prettier --config .prettierrc --write"
+    ]
   },
   "repository": "haoxins/react-flatpickr",
   "keywords": [
@@ -67,8 +74,10 @@
     "eslint-plugin-react": "^7.37.4",
     "eslint-plugin-ts-react-hooks": "^1.0.4",
     "globals": "^16.0.0",
+    "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^15.5.1",
     "prettier": "^3.5.3",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
