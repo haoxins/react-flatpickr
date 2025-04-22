@@ -140,8 +140,8 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
       {children}
     </div>
   ) : (
-    // @ts-expect-error just allow all the passed props to be passed to the input
     <input
+      // @ts-expect-error just allow all the passed props to be passed to the input
       onChange={onChange}
       {...props}
       value={value?.toString()}
