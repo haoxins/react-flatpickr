@@ -1,40 +1,40 @@
 import React, {useState, useRef, useCallback, useMemo} from 'react';
 import {createRoot} from 'react-dom/client';
+import flatpickr from 'flatpickr';
 
 import Flatpickr from '../lib/index.js';
 
 import 'flatpickr/dist/themes/material_green.css';
 import './index.css';
 
-// Date string in the format YYYY-MM-DD for last week
-const lastWeek = new Date(new Date().setDate(new Date().getDate() - 7)).toISOString().split('T')[0];
+const lastWeek: string = new Date(new Date().setDate(new Date().getDate() - 7)).toISOString().split('T')[0];
 
-const App = () => {
-  const calendarRef = useRef(null);
-  const value = useMemo(() => '2016-01-01 01:01', []);
-  const onChange = useCallback((_, str) => {
+const App: React.FC = () => {
+  const calendarRef = useRef<flatpickr.Instance | null>(null);
+  const value = useMemo<string>(() => '2016-01-01 01:01', []);
+  const onChange = useCallback((_: Date[], str: string) => {
     console.info(str);
   }, []);
-  const [range, setRange] = useState([new Date()]);
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
-  const [handler, setHandler] = useState(() => (dates) => {
+  const [range, setRange] = useState<Date[]>([new Date()]);
+  const [startDate, setStartDate] = useState<Date>(new Date());
+  const [endDate, setEndDate] = useState<Date>(new Date());
+  const [handler, setHandler] = useState<(dates: Date[]) => void>(() => (dates: Date[]) => {
     console.log('initial handler', dates);
   });
 
-  const sharedOptions = useMemo(
+  const sharedOptions = useMemo<flatpickr.Options.Options>(
     () => ({
       enableTime: true
     }),
     []
   );
 
-  const onStartChange = useCallback((date) => {
-    setStartDate(date);
+  const onStartChange = useCallback((date: Date[]) => {
+    setStartDate(date[0]);
   }, []);
 
-  const onEndChange = useCallback((date) => {
-    setEndDate(date);
+  const onEndChange = useCallback((date: Date[]) => {
+    setEndDate(date[0]);
   }, []);
 
   return (
@@ -46,20 +46,20 @@ const App = () => {
         <Flatpickr
           className="test"
           onChange={[
-            (_, str) => {
+            (_: Date[], str: string) => {
               console.info('First prop handler', str);
             },
-            (_, str) => {
+            (_: Date[], str: string) => {
               console.info('Second prop handler', str);
             }
           ]}
           options={{
             ...sharedOptions,
             onChange: [
-              (_, str) => {
+              (_: Date[], str: string) => {
                 console.info('First options handler', str);
               },
-              (_, str) => {
+              (_: Date[], str: string) => {
                 console.info('Second options handler', str);
               }
             ]
@@ -82,7 +82,7 @@ const App = () => {
         <button
           type="button"
           onClick={() => {
-            setHandler(() => (dates) => {
+            setHandler(() => (dates: Date[]) => {
               console.log('new handler', dates);
             });
           }}
@@ -92,7 +92,7 @@ const App = () => {
       </div>
       <div className="flatpickr-container">
         <div className="title">Enabled time</div>
-        <Flatpickr value={value} onChange={(_, str) => console.info(str)} options={sharedOptions} />
+        <Flatpickr value={value} onChange={(_, str: string) => console.info(str)} options={sharedOptions} />
       </div>
       <div className="flatpickr-container">
         <div className="title">
@@ -101,7 +101,7 @@ const App = () => {
           </a>
           &nbsp; of last week
         </div>
-        <Flatpickr value={value} options={{minDate: lastWeek}} onChange={(_, str) => console.info(str)} />
+        <Flatpickr value={value} options={{minDate: lastWeek}} onChange={(_, str: string) => console.info(str)} />
       </div>
       <div className="flatpickr-container">
         <div className="title">
@@ -112,7 +112,7 @@ const App = () => {
         <Flatpickr
           value={range}
           options={{mode: 'range'}}
-          onChange={(dates, str) => {
+          onChange={(dates: Date[], str: string) => {
             setRange(dates);
             console.info('range changed', dates, str);
           }}
@@ -147,12 +147,12 @@ const App = () => {
       </div>
       <div className="flatpickr-container">
         <div className="title">
-          <a href="https://flatpickr.js.org/examples/#preloading-a-date" taget="_blank">
+          <a href="https://flatpickr.js.org/examples/#preloading-a-date" target="_blank">
             Preloading the date
           </a>
           &nbsp; to today
         </div>
-        <Flatpickr value={new Date()} onChange={(_, str) => console.info(str)} />
+        <Flatpickr value={new Date()} onChange={(_, str: string) => console.info(str)} />
       </div>
       <div className="flatpickr-container">
         <div className="title">
@@ -160,7 +160,7 @@ const App = () => {
             External elements
           </a>
         </div>
-        <Flatpickr value={value} options={{wrap: true}} onChange={(_, str) => console.info(str)}>
+        <Flatpickr value={value} options={{wrap: true}} onChange={(_, str: string) => console.info(str)}>
           <input type="text" data-input />
           <button type="button" data-toggle>
             Toggle
@@ -174,7 +174,7 @@ const App = () => {
         <Flatpickr
           defaultValue="2019-05-05"
           onCreate={(flatpickr) => {
-            calendarRef.current = flatpickr;
+            calendarRef.current = flatpickr!;
           }}
           onDestroy={() => {
             calendarRef.current = null;
@@ -215,6 +215,4 @@ const App = () => {
   );
 };
 
-window.init = () => {
-  createRoot(document.querySelector('#container')).render(<App />);
-};
+createRoot(document.querySelector('#container')!).render(<App />);

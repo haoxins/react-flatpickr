@@ -18,14 +18,14 @@ export interface DateTimePickerProps
   extends Omit<ComponentPropsWithoutRef<'input'>, 'children' | 'value' | 'onChange'> {
   defaultValue?: string;
   options?: OptionsType;
-  onChange?: flatpickr.Options.Hook;
-  onOpen?: flatpickr.Options.Hook;
-  onClose?: flatpickr.Options.Hook;
-  onMonthChange?: flatpickr.Options.Hook;
-  onYearChange?: flatpickr.Options.Hook;
-  onReady?: flatpickr.Options.Hook;
-  onValueUpdate?: flatpickr.Options.Hook;
-  onDayCreate?: flatpickr.Options.Hook;
+  onChange?: flatpickr.Options.Hook[] | flatpickr.Options.Hook;
+  onOpen?: flatpickr.Options.Hook[] | flatpickr.Options.Hook;
+  onClose?: flatpickr.Options.Hook[] | flatpickr.Options.Hook;
+  onMonthChange?: flatpickr.Options.Hook[] | flatpickr.Options.Hook;
+  onYearChange?: flatpickr.Options.Hook[] | flatpickr.Options.Hook;
+  onReady?: flatpickr.Options.Hook[] | flatpickr.Options.Hook;
+  onValueUpdate?: flatpickr.Options.Hook[] | flatpickr.Options.Hook;
+  onDayCreate?: flatpickr.Options.Hook[] | flatpickr.Options.Hook;
   onCreate?: Callback;
   onDestroy?: Callback;
 

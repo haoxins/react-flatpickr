@@ -13,6 +13,6 @@
     "outDir": "build",
     "types": ["vite/client", "node", "react"]
   },
-  "include": ["lib/**/*"],
+  "include": ["lib/**/*", "example/**/*"],
   "exclude": ["node_modules", "*.json"]
 }

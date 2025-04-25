@@ -129,7 +129,11 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
   const onChange: ChangeEventHandler<HTMLInputElement> = useCallback(
     (e) => {
       if (defaultProps && defaultProps.onChange) {
-        defaultProps.onChange([new Date(e.target.value)], value?.toString() || '', flatpickrRef.current!);
+        if (Array.isArray(defaultProps?.onChange)) {
+          defaultProps?.onChange?.forEach(() => [new Date(e.target.value)], value?.toString() || '');
+        } else if (typeof defaultProps.onChange === 'function') {
+          defaultProps?.onChange?.([new Date(e.target.value)], value?.toString() || '', flatpickrRef.current!);
+        }
       }
     },
     [defaultProps, value]
