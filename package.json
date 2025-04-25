@@ -19,7 +19,7 @@
   "main": "./build/react-flatpickr.cjs",
   "module": "./build/react-flatpickr.js",
   "scripts": {
-    "lint": "eslint --quiet --fix lib example test types",
+    "lint": "eslint --quiet --fix lib test types",
     "format": "prettier --config .prettierrc --write 'lib/*.{ts,tsx}' 'example/*' 'test/*.{ts,tsx}' 'types/*.ts'",
     "build": "tsc -b && vite build",
     "test": "jest --config=jest.config.ts --env=jsdom",

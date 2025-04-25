@@ -1,7 +1,5 @@
 {
   "compilerOptions": {
-    "baseUrl": "./lib",
-    "rootDir": "./lib",
     "target": "ESNext",
     "module": "CommonJS",
     "esModuleInterop": true,
@@ -13,6 +11,6 @@
     "outDir": "build",
     "types": ["vite/client", "node", "react"]
   },
-  "include": ["lib/**/*", "example/**/*"],
-  "exclude": ["node_modules", "*.json"]
+  "include": ["lib/**/*"],
+  "exclude": ["node_modules", "*.json", "example/**/*", "types/**/*"]
 }
