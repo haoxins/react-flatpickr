@@ -1,6 +1,8 @@
-import {ReactNode, RefObject} from 'react';
+import {ComponentPropsWithoutRef, ReactNode, RefObject} from 'react';
 import flatpickr from 'flatpickr';
 import {DateOption, Options} from 'flatpickr/dist/types/options';
+
+export type Omit<T, K extends keyof any> = Pick<T, Exclude<keyof T, K>>;
 
 export type Callback = (arg0?: flatpickr.Instance | null) => void;
 
@@ -12,7 +14,8 @@ export interface DateTimePickerHandle {
   flatpickr?: flatpickr.Instance;
 }
 
-export interface DateTimePickerProps {
+export interface DateTimePickerProps
+  extends Omit<ComponentPropsWithoutRef<'input'>, 'children' | 'value' | 'onChange'> {
   defaultValue?: string;
   options?: OptionsType;
   onChange?: flatpickr.Options.Hook;
