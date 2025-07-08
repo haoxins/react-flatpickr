@@ -48,7 +48,7 @@ const mergeHooks = (inputOptions: flatpickr.Options.Options, props: DateTimePick
 
 export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
   const props = useMemo(() => ({...defaultProps}), [defaultProps]);
-  const {defaultValue, options = {}, value, children, render} = props;
+  const {defaultValue, options = {}, value, children, render, onCreate, onDestroy} = props;
   const mergedOptions = useMemo(() => mergeHooks(options, props), [options, props]);
   const nodeRef = useRef<HTMLElement | null>(null);
   const flatpickrRef = useRef<flatpickr.Instance>(undefined);
@@ -76,15 +76,11 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
       // @ts-expect-error for some reason the default import isnt working correctly
       flatpickrRef.current = (flatpickr?.default || flatpickr)(nodeRef.current as HTMLElement, mergedOptions);
 
-      if (flatpickrRef.current && value !== undefined) {
-        flatpickrRef.current.setDate(value, false);
-      }
-
-      if (defaultProps.onCreate) defaultProps.onCreate(flatpickrRef.current);
+      onCreate?.(flatpickrRef.current);
     };
 
     const destroyFlatpickrInstance = () => {
-      if (defaultProps.onDestroy) defaultProps.onDestroy(flatpickrRef.current);
+      onDestroy?.(flatpickrRef.current);
       if (flatpickrRef.current) {
         flatpickrRef.current.destroy();
       }
@@ -93,6 +89,12 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
 
     createFlatpickrInstance();
 
+    return () => {
+      destroyFlatpickrInstance();
+    };
+  }, [mergedOptions, onCreate, onDestroy]);
+
+  useEffect(() => {
     if (flatpickrRef.current) {
       const optionsKeys = Object.getOwnPropertyNames(mergedOptions);
       for (let index = optionsKeys.length - 1; index >= 0; index--) {
@@ -112,11 +114,7 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
         flatpickrRef.current.setDate(value as DateOption | DateOption[], false);
       }
     }
-
-    return () => {
-      destroyFlatpickrInstance();
-    };
-  }, [mergedOptions, options, props, value, defaultProps]);
+  }, [mergedOptions, value]);
 
   const handleNodeChange = useCallback((node: HTMLElement | null) => {
     nodeRef.current = node;

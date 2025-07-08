@@ -222,6 +222,12 @@ Please import themes directly from the `flatpickr` dependency.
 
 > In most cases, you should just be able to `import 'flatpickr/dist/themes/airbnb.css'`, but in some cases npm or yarn may install `flatpickr` in `node_modules/react-flatpickr/node_modules/flatpickr`. If that happens, removing your `node_modules` dir and reinstalling should put flatpickr in the root `node_modules` dir, or you can import from `react-flatpickr/node_modules/flatpickr` manually.
 
+#### The Date Picker closes after a value is selected
+
+This occurs due to the date picker being created and destroyed on each render. To avoid this, you need
+to ensure that any props and options that are passed in are memoized with `useMemo`. You should also
+ensure that your event handlers have stable references by wrapping them in `useCallback`.
+
 ## License
 
 MIT
