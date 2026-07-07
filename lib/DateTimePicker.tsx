@@ -52,6 +52,12 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
   const mergedOptions = useMemo(() => mergeHooks(options, props), [options, props]);
   const nodeRef = useRef<HTMLElement | null>(null);
   const flatpickrRef = useRef<flatpickr.Instance>(undefined);
+  const mergedOptionsRef = useRef(mergedOptions);
+  mergedOptionsRef.current = mergedOptions;
+  const onCreateRef = useRef(onCreate);
+  onCreateRef.current = onCreate;
+  const onDestroyRef = useRef(onDestroy);
+  onDestroyRef.current = onDestroy;
 
   useImperativeHandle(
     defaultProps.ref,
@@ -67,20 +73,21 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
 
   useEffect(() => {
     const createFlatpickrInstance = () => {
-      mergedOptions.onClose =
-        mergedOptions.onClose ||
+      const opts = mergedOptionsRef.current;
+      opts.onClose =
+        opts.onClose ||
         (() => {
           if (nodeRef.current?.blur) nodeRef.current.blur();
         });
 
       // @ts-expect-error for some reason the default import isnt working correctly
-      flatpickrRef.current = (flatpickr?.default || flatpickr)(nodeRef.current as HTMLElement, mergedOptions);
+      flatpickrRef.current = (flatpickr?.default || flatpickr)(nodeRef.current as HTMLElement, opts);
 
-      onCreate?.(flatpickrRef.current);
+      onCreateRef.current?.(flatpickrRef.current);
     };
 
     const destroyFlatpickrInstance = () => {
-      onDestroy?.(flatpickrRef.current);
+      onDestroyRef.current?.(flatpickrRef.current);
       if (flatpickrRef.current) {
         flatpickrRef.current.destroy();
       }
@@ -92,7 +99,7 @@ export const DateTimePicker: FC<DateTimePickerProps> = (defaultProps) => {
     return () => {
       destroyFlatpickrInstance();
     };
-  }, [mergedOptions, onCreate, onDestroy]);
+  }, []);
 
   useEffect(() => {
     if (flatpickrRef.current) {

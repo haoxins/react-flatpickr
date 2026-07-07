@@ -121,4 +121,16 @@ describe('react-flatpickr', () => {
       expect(spy).toHaveBeenCalled();
     });
   });
+
+  describe('when options are passed inline without memoization', () => {
+    it('does not recreate the flatpickr instance when re-rendered with inline options', () => {
+      const spy = jest.fn();
+      const {unmount, rerender} = render(<DateTimePicker options={{enableTime: true}} onCreate={spy} />);
+
+      rerender(<DateTimePicker options={{enableTime: true}} onCreate={spy} />);
+
+      expect(spy).toHaveBeenCalledTimes(1);
+      unmount();
+    });
+  });
 });
