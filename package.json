@@ -46,7 +46,7 @@
   "author": "haoxin",
   "license": "MIT",
   "dependencies": {
-    "flatpickr": "^4.6.13"
+    "flatpickr": "npm:flatpickr-ce@^4.7.0"
   },
   "devDependencies": {
     "@babel/cli": "^7.26.4",
